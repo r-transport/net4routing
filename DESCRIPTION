@@ -1,4 +1,4 @@
-Package: osmhelpR
+Package: net4routing
 Type: Package
 Title: Convert osm.pbf Files for Routing in R
 Version: 0.1.0

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(osmhelpR)
+library(net4routing)
 
-test_check("osmhelpR")
+test_check("net4routing")
