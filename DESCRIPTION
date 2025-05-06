@@ -3,16 +3,10 @@ Type: Package
 Title: Convert osm.pbf Files for Routing in R
 Version: 0.1.0
 Authors@R: c(
-    person(
-      "Robin", "Lovelace",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    ),
-    person(
-      "Bernhard", "Dannemann",
-      email = "bernhard.dannemann@uol.de",
-      role = c("aut", "cre")
-    ),
+    person("Robin", "Lovelace", , "first.last@example.com", role = "cre",
+           comment = c(ORCID = "YOUR-ORCID-ID")),
+    person("Bernhard", "Dannemann", , "bernhard.dannemann@uol.de", role = "aut",
+           comment = c(ORCID = "0000-0002-3775-8216"))
   )
 Description: Convert osm.pbf files for *edge*/*node* representation inside R.
     This allows for customizable use, for example, in packages like `cppRouting.
