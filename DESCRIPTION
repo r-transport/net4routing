@@ -1,16 +1,25 @@
 Package: osmhelpR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Convert osm.pbf Files for Routing in R
 Version: 0.1.0
 Authors@R: c(
     person(
-      "Jane", "Doe",
+      "Robin", "Lovelace",
       email = "jane@example.com",
       role = c("aut", "cre")
-    )
+    ),
+    person(
+      "Bernhard", "Dannemann",
+      email = "bernhard.dannemann@uol.de",
+      role = c("aut", "cre")
+    ),
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: Convert osm.pbf files for *edge*/*node* representation inside R.
+    This allows for customizable use, for example, in packages like `cppRouting.
+    Further, the package includes various profiles to control the routing 
+    behavior on a segment level (*car*, *bike*, *truck* and further profiles),
+    as well as the inclusion of custom weights based on raster source (traffic,
+    capacity, disruptions, ...).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
