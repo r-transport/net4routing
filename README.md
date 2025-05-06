@@ -12,7 +12,7 @@ You can install the development version of net4routing from [GitHub](https://git
 
 ``` r
 # install.packages("pak")
-pak::pak("r-transport/osmhelpR")
+pak::pak("r-transport/net4routing")
 ```
 
 ## Example
