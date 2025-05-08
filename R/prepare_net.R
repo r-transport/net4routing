@@ -8,10 +8,23 @@
 #' @export
 #'
 #' @examples
-#' #TODO(BDA): Add example to work out of the box
 #' \dontrun{
-#' x <- prepare_net(nodes_file = "data/osm/nodes.csv.gz",
-#'   edges_file = "data/osm/edges.csv.gz",
+#' # Get osm.pbf File
+#' osmextract::oe_get("Isle of Wight",
+#'                    provider = "geofabrik",
+#'                    download_directory = tempdir())
+#'
+#' # Get nodes and edges files
+#' osm4routing_extract(
+#'   osm_file = file.path(tempdir(), "geofabrik_isle-of-wight-latest.osm.pbf"),
+#'   nodes_file = file.path(tempdir(), "nodes.csv.gz"),
+#'   edges_file = file.path(tempdir(), "edges.csv.gz"),
+#' )
+#'
+#' # Prepare network
+#' net <- prepare_net(
+#'   nodes_file = file.path(tempdir(), "nodes.csv.gz"),
+#'   edges_file = file.path(tempdir(), "edges.csv.gz"),
 #'   mode = "car"
 #' )
 #'}
@@ -40,6 +53,7 @@ prepare_net = function(nodes_file,
     edges = edges[, c(selection, varnames), with = FALSE]
   }
   # Eliminate edges tagged as forbidden
+  #FIXME: When built as a package, following line fails as 'object 'car' is not found.
   edges = edges[get(mode) != "Forbidden",]
 
   # Filter nodes
