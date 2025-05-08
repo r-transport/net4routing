@@ -20,6 +20,7 @@ LazyData: true
 Suggests: 
     testthat (>= 3.0.0)
 Imports:
-    data.table
+    data.table,
+    osmextract
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
