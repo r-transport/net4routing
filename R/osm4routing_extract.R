@@ -22,24 +22,41 @@
 #' '                   nodes_file = "nodes.csv.gz",
 #' '                   overwrite = TRUE)
 #' }
-osm4routing_extract = function(osm_file = NULL,
-                               edges_file = "edges.csv",
-                               nodes_file = "nodes.csv",
-                               overwrite = FALSE) {
+osm4routing_extract = function(
+  osm_file = NULL,
+  edges_file = "edges.csv",
+  nodes_file = "nodes.csv",
+  overwrite = FALSE
+) {
   # Check if osm4routing is installed
-  stopifnot("osm4routing must be installed" = system("osm4routing --version", ignore.stdout = TRUE, ignore.stderr = TRUE) == 0)
+  stopifnot(
+    "osm4routing must be installed" = system(
+      "osm4routing --version",
+      ignore.stdout = TRUE,
+      ignore.stderr = TRUE
+    ) ==
+      0
+  )
 
   # Check Input
   stopifnot("osm_file must be provided" = !is.null(osm_file))
   exist = file.exists(nodes_file) && file.exists(edges_file)
-  stopifnot("Nodes/Edges files already exist. Overwrite is set to FALSE!" = !all(exist, !overwrite))
+  stopifnot(
+    "Nodes/Edges files already exist. Overwrite is set to FALSE!" = !all(
+      exist,
+      !overwrite
+    )
+  )
 
   # Check if output should be compressed
   gz_nodes = grepl("\\.gz$", nodes_file)
   gz_edges = grepl("\\.gz$", edges_file)
 
-  stopifnot("Nodes/Edges files must both be either .csv or .csv.gz" =
-               (gz_nodes && gz_edges) || (!gz_nodes && !gz_edges))
+  stopifnot(
+    "Nodes/Edges files must both be either .csv or .csv.gz" = (gz_nodes &&
+      gz_edges) ||
+      (!gz_nodes && !gz_edges)
+  )
 
   compress = gz_nodes && gz_edges
 
@@ -51,9 +68,14 @@ osm4routing_extract = function(osm_file = NULL,
   }
 
   # Build osm4routing call
-  call = paste("osm4routing", osm_file,
-                "--nodes-file", nodes_file,
-                "--edges-file", edges_file)
+  call = paste(
+    "osm4routing",
+    osm_file,
+    "--nodes-file",
+    nodes_file,
+    "--edges-file",
+    edges_file
+  )
 
   system(call)
 
@@ -79,4 +101,3 @@ osm4routing_extract = function(osm_file = NULL,
     edges_file = edges_file
   ))
 }
-
