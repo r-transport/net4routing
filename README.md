@@ -36,3 +36,9 @@ To format code for the package, install and format with `air`:
 curl -LsSf https://github.com/posit-dev/air/releases/latest/download/air-installer.sh | sh
 air format .
 ```
+
+Check the package with:
+
+``` r
+devtools::check()
+```

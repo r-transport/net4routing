@@ -11,18 +11,29 @@
 #' @examples
 #' \dontrun{
 #' # Without Compression
-#' osm4routing_extract(osm_file = "example.osm.pbf",
-#' '                   edges_file = "edges.csv",
-#' '                   nodes_file = "nodes.csv",
-#' '                   overwrite = TRUE)
+#' iow = osmextract::oe_get_network("isle of wight", mode = "driving")
+#' ?osmextract::oe_download
+#' ?osmextract::oe_match
+#' region_name = "isle of wight"
+#' pbf_info = osmextract::oe_match(region_name)
+#' pbf_url = pbf_info$url
+#' pbf_file = osmextract::oe_download(pbf_info$url)
+#' nr_osm4routing(
+#'   osm_file = pbf_file,
+#'   edges_file = "edges.csv",
+#'   nodes_file = "nodes.csv",
+#'   overwrite = TRUE
+#' )
 #'
 #' # With Compression
-#' osm4routing_extract(osm_file = "example.osm.pbf",
-#' '                   edges_file = "edges.csv.gz",
-#' '                   nodes_file = "nodes.csv.gz",
-#' '                   overwrite = TRUE)
+#' nr_osm4routing(
+#'   osm_file = pbf_file,
+#'   edges_file = "edges.csv.gz",
+#'   nodes_file = "nodes.csv.gz",
+#'   overwrite = TRUE
+#' )
 #' }
-osm4routing_extract = function(
+nr_osm4routing = function(
   osm_file = NULL,
   edges_file = "edges.csv",
   nodes_file = "nodes.csv",
