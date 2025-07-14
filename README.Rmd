@@ -31,14 +31,20 @@ pak::pak("r-transport/net4routing")
 
 ## Example
 
-```{r example}
-library(net4routing)
-## basic example code
-```
-
 ```{r devtools, include = FALSE}
 devtools::load_all()
 ```
+
+```{r example}
+library(net4routing)
+# Download a network:
+region_name = "isle of wight"
+pbf_info = osmextract::oe_match(region_name)
+pbf_url = pbf_info$url
+pbf_file = osmextract::oe_download(pbf_info$url)
+nr_osm4routing(pbf_file)
+```
+
 
 # Development
 

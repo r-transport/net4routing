@@ -3,7 +3,7 @@
 #' @param osm_file osm.pbf file to be used
 #' @param edges_file File name for the edges file.
 #' @param nodes_file File name for the nodes file
-#' @param overwrite Overwrite existing files (TRUE/FALSE)
+#' @param overwrite Overwrite existing files (TRUE by default)
 #'
 #' @returns Node and edge files
 #' @export
@@ -21,33 +21,48 @@
 #' nr_osm4routing(
 #'   osm_file = pbf_file,
 #'   edges_file = "edges.csv",
-#'   nodes_file = "nodes.csv",
-#'   overwrite = TRUE
+#'   nodes_file = "nodes.csv"
 #' )
 #'
 #' # With Compression
 #' nr_osm4routing(
 #'   osm_file = pbf_file,
 #'   edges_file = "edges.csv.gz",
-#'   nodes_file = "nodes.csv.gz",
-#'   overwrite = TRUE
+#'   nodes_file = "nodes.csv.gz"
 #' )
 #' }
 nr_osm4routing = function(
   osm_file = NULL,
   edges_file = "edges.csv",
   nodes_file = "nodes.csv",
-  overwrite = FALSE
+  overwrite = TRUE
 ) {
   # Check if osm4routing is installed
-  stopifnot(
-    "osm4routing must be installed" = system(
-      "osm4routing --version",
-      ignore.stdout = TRUE,
-      ignore.stderr = TRUE
-    ) ==
-      0
-  )
+  osm4routing_bin = "osm4routing"
+  version_check = tryCatch({
+    processx::run(
+      command = osm4routing_bin,
+      args = "--version",
+      stdout = NULL,
+      stderr = NULL,
+      error_on_status = TRUE
+    )
+    0
+  }, error = function(e) {
+    1
+  })
+
+  if (version_check != 0) {
+    # Try the cargo path if the default fails
+    osm4routing_bin_cargo = file.path(Sys.getenv("HOME"), ".cargo", "bin", "osm4routing")
+    if (file.exists(osm4routing_bin_cargo)) {
+        osm4routing_bin = osm4routing_bin_cargo
+    } else {
+        stop(
+            "osm4routing not found in PATH or ~/.cargo/bin/. Please install it."
+        )
+    }
+  }
 
   # Check Input
   stopifnot("osm_file must be provided" = !is.null(osm_file))
@@ -80,7 +95,7 @@ nr_osm4routing = function(
 
   # Build osm4routing call
   call = paste(
-    "osm4routing",
+    osm4routing_bin,
     osm_file,
     "--nodes-file",
     nodes_file,

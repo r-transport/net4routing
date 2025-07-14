@@ -25,7 +25,16 @@ pak::pak("r-transport/net4routing")
 
 ``` r
 library(net4routing)
-## basic example code
+# Download a network:
+region_name = "isle of wight"
+pbf_info = osmextract::oe_match(region_name)
+#> The input place was matched with: Isle of Wight
+pbf_url = pbf_info$url
+pbf_file = osmextract::oe_download(pbf_info$url)
+#> The chosen file was already detected in the download directory. Skip downloading.
+nr_osm4routing(pbf_file)
+#>  nodes_file  edges_file 
+#> "nodes.csv" "edges.csv"
 ```
 
 # Development
